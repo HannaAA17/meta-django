@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import generics
+from rest_framework import generics, viewsets
 
 from .models import MenuItem
 from .serializers import MenuItemSerializer
@@ -13,3 +13,9 @@ class MenuItemListView(generics.ListCreateAPIView):
 class singleMenuItemView(generics.RetrieveUpdateDestroyAPIView):
     queryset = MenuItem.objects.all()
     serializer_class = MenuItemSerializer
+
+class MenuItemViewSet(viewsets.ModelViewSet):
+    queryset = MenuItem.objects.all()
+    serializer_class = MenuItemSerializer
+    ordering_fields = ['price', 'inventory']
+    search_fields = ['title', 'category__title']
