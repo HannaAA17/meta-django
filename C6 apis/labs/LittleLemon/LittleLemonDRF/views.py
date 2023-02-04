@@ -1,14 +1,15 @@
 from django.shortcuts import render
 from rest_framework import generics
 
-from .models import Menuitem
+from .models import MenuItem
 from .serializers import MenuItemSerializer
 # Create your views here.
 
 class MenuItemListView(generics.ListCreateAPIView):
-    queryset = Menuitem.objects.all()
+    # its very important to use select_related here
+    queryset = MenuItem.objects.select_related('category').all()
     serializer_class = MenuItemSerializer
 
 class singleMenuItemView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Menuitem.objects.all()
+    queryset = MenuItem.objects.all()
     serializer_class = MenuItemSerializer
