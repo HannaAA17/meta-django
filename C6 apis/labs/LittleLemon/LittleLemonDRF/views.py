@@ -23,3 +23,21 @@ class MenuItemViewSet(viewsets.ModelViewSet):
     serializer_class = MenuItemSerializer
     ordering_fields = ['price', 'inventory']
     search_fields = ['title', 'category__title']
+
+
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+
+class secure_view(generics.GenericAPIView):
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        return Response('Hello, World!')
+
+# from rest_framework.decorators import permission_classes, api_view
+# 
+# @api_view()
+# @permission_classes([IsAuthenticated])
+# def secure_view(request):
+#     return Response('Hello, World!')
