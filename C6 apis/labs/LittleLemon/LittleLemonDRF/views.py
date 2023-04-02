@@ -41,3 +41,19 @@ class secure_view(generics.GenericAPIView):
 # @permission_classes([IsAuthenticated])
 # def secure_view(request):
 #     return Response('Hello, World!')
+
+from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
+from .throttles import TenPerMinuteThrottle
+class ThrottledView(generics.GenericAPIView):
+    throttle_classes = [AnonRateThrottle, TenPerMinuteThrottle]
+    
+    def get(self, request):
+        return Response('Hello, World!')
+
+
+class ThrottledAuthView(generics.GenericAPIView):
+    permission_classes = [IsAuthenticated]
+    throttle_classes = [UserRateThrottle]
+    
+    def get(self, request):
+        return Response('Hello, World!')

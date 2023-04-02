@@ -19,6 +19,12 @@ urlpatterns += [
     path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
 ]
 
+
+urlpatterns += [
+    path('throttled/',  views.ThrottledView.as_view()),
+    path('throttled-auth/',  views.ThrottledAuthView.as_view()),
+]
+
 '''
 ###
 GET http://127.0.0.1:8000/api/secured/
@@ -35,4 +41,11 @@ content-type: application/json
     "password": "hanna"
 }
 ###
+GET http://127.0.0.1:8000/api/throttled/
+accept: application/json
+Authorization: Token f0f841c14a654e8b560a0d8019009abd0747b021
+###
+GET http://127.0.0.1:8000/api/throttled-auth/
+accept: application/json
+Authorization: Token f0f841c14a654e8b560a0d8019009abd0747b021
 '''
