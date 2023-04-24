@@ -8,6 +8,9 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
+    
+    class Meta:
+        verbose_name_plural = 'categories'
 
 
 class MenuItem(models.Model):
@@ -15,6 +18,9 @@ class MenuItem(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2, db_index=True)
     featured = models.BooleanField(db_index=True)
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
+
+    class Meta:
+        ordering = ('title',)
 
 
 class Cart(models.Model):

@@ -11,13 +11,13 @@ from .serializers import UserSerializer, MenuItemSerializer
 
 
 class MenuItemsView(viewsets.ModelViewSet):
-    queryset = MenuItem.objects.all()
+    queryset = MenuItem.objects.select_related('category').all()
     serializer_class = MenuItemSerializer
     
     def get_permissions(self):
         permission_classes = []
         
-        print(self.action, self.request.method, self.request.user.groups.all())
+        # print(self.action, self.request.method, self.request.user.groups.all())
         
         if self.action in ['retrieve', 'list']:
             permission_classes = [IsCustomerUser]
