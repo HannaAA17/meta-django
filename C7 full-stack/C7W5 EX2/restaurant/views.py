@@ -1,0 +1,47 @@
+import json
+from datetime import datetime
+
+from django.shortcuts import render
+from django.core import serializers
+# from django.http import HttpResponse
+
+from .models import Menu, Booking
+from .forms import BookingForm
+
+def home(request):
+    return render(request, 'index.html')
+
+def about(request):
+    return render(request, 'about.html')
+
+def book(request):
+    form = BookingForm()
+    if request.method == 'POST':
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            form.save()
+    context = {'form':form}
+    return render(request, 'book.html', context)
+
+# Add code for the bookings() view
+def bookings(request):
+    
+    if request.method == 'GET':
+        date = request.GET.get('date', datetime.today().date())
+        bookings_ = Booking.objects.all()
+        booking_json = serializers.serialize('json', bookings_)
+
+        return render(request, 'booking.html', {'bookings': booking_json,})
+
+def menu(request):
+    menu_data = Menu.objects.all()
+    main_data = {"menu": menu_data}
+    return render(request, 'menu.html', {"menu": main_data})
+
+
+def display_menu_item(request, pk=None): 
+    if pk: 
+        menu_item = Menu.objects.get(pk=pk) 
+    else: 
+        menu_item = "" 
+    return render(request, 'menu_item.html', {"menu_item": menu_item}) 
