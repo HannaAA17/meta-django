@@ -25,8 +25,15 @@ SECRET_KEY = 'django-insecure-r-%0eqcja86asp_+*1@3d6t9wm65$7^p*v^m961p@)w7*3ob0n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+import os
+
+if 'GITPOD_WORKSPACE_URL' in os.environ:
+    CSRF_TRUSTED_ORIGINS = [os.getenv('GITPOD_WORKSPACE_URL').replace('https://', 'https://8000-')]
+
+else:
+    ...
 
 # Application definition
 
@@ -82,8 +89,8 @@ DATABASES = {
         'NAME': 'reservations',
         'HOST' : '127.0.0.1',
         'PORT' : '3306',
-        'USER' : 'root',
-        'PASSWORD' : 'root@123',
+        'USER' : 'admindjango',
+        'PASSWORD' : 'employee@123!',
     }
 }
 
