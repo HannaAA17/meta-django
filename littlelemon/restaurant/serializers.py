@@ -11,10 +11,9 @@ class UserSerializer(serializers.ModelSerializer):
 class MenuSerializer(serializers.ModelSerializer):
     class Meta:
         model = Menu
-        fiels = '__all__'
+        fields = '__all__'
 
 class BookingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Booking
-        fiels = '__all__'
-        
+        fields = '__all__'

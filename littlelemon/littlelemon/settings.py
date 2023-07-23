@@ -45,6 +45,8 @@ INSTALLED_APPS = [
 
     'restaurant',
     'rest_framework',
+    'rest_framework.authtoken',
+    'LittleLemonAPI',
 ]
 
 MIDDLEWARE = [
